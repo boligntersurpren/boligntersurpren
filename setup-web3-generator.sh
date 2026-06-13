@@ -4,6 +4,7 @@
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
+RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}🚀 Web3 Project Generator Setup${NC}"
@@ -385,7 +386,7 @@ const generateSecurityREADME = (data) => `# ${data.projectName}
 
 ${data.description}
 
-## ���� Audit Scope
+## 🔍 Audit Scope
 
 ${data.overview}
 
@@ -617,7 +618,7 @@ echo -e "${GREEN}✅ Created package.json${NC}\n"
 mkdir -p "$PROJECT_GEN_DIR/templates"
 touch "$PROJECT_GEN_DIR/templates/.gitkeep"
 
-# Create a shell alias installer
+# Create a CORRECTED shell alias installer
 cat > "$PROJECT_GEN_DIR/install-alias.sh" << 'EOF'
 #!/bin/bash
 
@@ -634,11 +635,16 @@ if [ -z "$SHELL_CONFIG" ]; then
   exit 1
 fi
 
-# Add alias to shell config
+PROJECT_GEN_DIR="$HOME/.web3-project-generator"
+
+# Add alias to shell config with CORRECT path
 if ! grep -q "web3-gen" "$SHELL_CONFIG"; then
   echo "alias web3-gen='node $PROJECT_GEN_DIR/generate-readme.js'" >> "$SHELL_CONFIG"
   echo "✅ Added 'web3-gen' alias to $SHELL_CONFIG"
-  echo "🔄 Run: source $SHELL_CONFIG"
+  echo ""
+  echo "🔄 Run one of these to reload:"
+  echo "   source $SHELL_CONFIG"
+  echo ""
 else
   echo "✅ Alias already exists in $SHELL_CONFIG"
 fi
@@ -1142,8 +1148,8 @@ cat > "$PROJECT_GEN_DIR/INSTALLATION_SUMMARY.txt" << 'EOF'
 ║                                                                    ║
 ║   ✅ WEB3 PROJECT GENERATOR - INSTALLATION COMPLETE!              ║
 ║                                                                    ║
-║   Version: 1.0.0                                                  ║
-║   Created: $(date)                                   ║
+║   Version: 1.0.0 (CORRECTED)                                      ║
+║   Created: 2026-06-13                                             ║
 ║   Location: ~/.web3-project-generator                            ║
 ║                                                                    ║
 ╚════════════════════════════════════════════════════════════════════╝
@@ -1202,6 +1208,15 @@ cat > "$PROJECT_GEN_DIR/INSTALLATION_SUMMARY.txt" << 'EOF'
   • devops           → Infrastructure, K8s
   • security         → Audits, security reviews
   • general          → Any other project type
+
+⚠️  IMPORTANT FIX - CORRECTED VERSION:
+
+  If you see errors like:
+  "Cannot find module '/generate-readme.js'"
+
+  The alias path was FIXED! Make sure to reinstall:
+  bash ~/.web3-project-generator/install-alias.sh
+  source ~/.zshrc
 
 💡 NEXT STEPS:
 
@@ -1285,8 +1300,8 @@ cat > "$PROJECT_GEN_DIR/INSTALLATION_SUMMARY.txt" << 'EOF'
 
 Created with ❤️ for the Web3 developer community
 
-Version: 1.0.0
-Generated: $(date)
+Version: 1.0.0 (CORRECTED)
+Generated: 2026-06-13
 EOF
 
 echo -e "${YELLOW}═══════════════════════════════════════════════════════${NC}"
