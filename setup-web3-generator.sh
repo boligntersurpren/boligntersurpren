@@ -1,25 +1,46 @@
 #!/bin/bash
 
-# Colors for output
+################################################################################
+#                                                                              #
+#  WEB3 PROJECT README GENERATOR - COMPLETE AUTOMATED SETUP                   #
+#  Senior Developer Automation | Production Ready | Zero Manual Steps         #
+#                                                                              #
+#  This script creates a fully functional Web3 project README generator       #
+#  with CLI tool, GitHub Actions, and templates - all in one shot.           #
+#                                                                              #
+################################################################################
+
+set -e
+
+# Color palette
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-echo -e "${BLUE}🚀 Web3 Project Generator Setup${NC}"
-echo -e "${BLUE}================================${NC}\n"
+# Banner
+echo -e "${BLUE}"
+cat << "EOF"
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║      WEB3 PROJECT GENERATOR - COMPLETE SETUP v1.0             ║
+║      Senior Developer | 20+ Years Automation Experience       ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+EOF
+echo -e "${NC}\n"
 
-# Create main project generator directory
+# Setup directories
 PROJECT_GEN_DIR="$HOME/.web3-project-generator"
-mkdir -p "$PROJECT_GEN_DIR"
+mkdir -p "$PROJECT_GEN_DIR"/{templates,github-workflows}
 
-echo -e "${GREEN}✅ Created directory: $PROJECT_GEN_DIR${NC}\n"
+# ============================================================================
+# 1. CREATE MAIN CLI GENERATOR TOOL
+# ============================================================================
 
-# Create the CLI tool
-cat > "$PROJECT_GEN_DIR/generate-readme.js" << 'EOF'
+cat > "$PROJECT_GEN_DIR/generate-readme.js" << 'EOFJS'
 #!/usr/bin/env node
-
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
@@ -65,32 +86,24 @@ ${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(
 ## 📦 Installation
 
 \`\`\`bash
-# Clone the repository
 git clone https://github.com/${data.author}/${data.projectNameSlug}.git
 cd ${data.projectNameSlug}
-
-# Install dependencies
-npm install
-# or
-forge install
+npm install && forge install
 \`\`\`
 
 ## 🚀 Getting Started
 
-### Compile Contracts
-
+### Compile
 \`\`\`bash
 forge build
 \`\`\`
 
-### Run Tests
-
+### Test
 \`\`\`bash
 forge test
 \`\`\`
 
 ### Deploy
-
 \`\`\`bash
 forge script script/Deploy.s.sol --rpc-url <RPC_URL> --private-key <PRIVATE_KEY> --broadcast
 \`\`\`
@@ -105,7 +118,7 @@ ${data.license || 'MIT'}
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions welcome! Please submit a Pull Request.
 
 ## 📞 Contact
 
@@ -115,7 +128,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-**Built with 🔗 on Ethereum. Security, scalability, and elegance.**
+**Built with 🔗 on Ethereum. Security, scalability, elegance.**
 `;
 
 const generateWeb3FrontendREADME = (data) => `# ${data.projectName}
@@ -132,76 +145,34 @@ ${data.features.split('\n').map(f => f.trim() ? `- ✅ ${f.trim()}` : '').filter
 
 ## 🛠️ Tech Stack
 
-**Frontend**
-\`React\` \`Next.js\` \`TypeScript\` \`Tailwind CSS\`
-
-**Web3**
-\`ethers.js\` \`Wagmi\` \`WalletConnect\` \`SIWE\`
-
-**Additional**
-${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(t => t).join(' ')}
+**Frontend:** \`React\` \`Next.js\` \`TypeScript\` \`Tailwind CSS\`
+**Web3:** \`ethers.js\` \`Wagmi\` \`WalletConnect\` \`SIWE\`
+**Additional:** ${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(t => t).join(' ')}
 
 ## 📦 Installation
 
 \`\`\`bash
-# Clone repository
 git clone https://github.com/${data.author}/${data.projectNameSlug}.git
 cd ${data.projectNameSlug}
-
-# Install dependencies
 npm install
-
-# Set up environment variables
 cp .env.example .env.local
-# Edit .env.local with your configuration
 \`\`\`
 
 ## 🚀 Quick Start
 
 \`\`\`bash
-# Development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
 \`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🔑 Configuration
-
-Create \`.env.local\`:
-
-\`\`\`env
-NEXT_PUBLIC_INFURA_ID=your_infura_id
-NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_wc_project_id
-\`\`\`
+Open [http://localhost:3000](http://localhost:3000)
 
 ## 📱 Supported Networks
 
 ${data.networks.split('\n').map(n => n.trim() ? `- ${n.trim()}` : '').filter(n => n).join('\n')}
 
-## 🎨 Project Structure
-
-\`\`\`
-src/
-├── pages/
-├── components/
-├── hooks/
-├── utils/
-└── styles/
-\`\`\`
-
 ## 📄 License
 
 ${data.license || 'MIT'}
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow our contributing guidelines.
 
 ## 📞 Contact
 
@@ -211,7 +182,7 @@ Contributions are welcome! Please follow our contributing guidelines.
 
 ---
 
-**Built for the Web3 ecosystem. 🚀**
+**Web3 Frontend Excellence. 🚀**
 `;
 
 const generateDeFiProtocolREADME = (data) => `# ${data.projectName}
@@ -226,73 +197,47 @@ ${data.overview}
 
 ${data.features.split('\n').map(f => f.trim() ? `- ${f.trim()}` : '').filter(f => f).join('\n')}
 
-## 🏗️ Architecture
-
-\`\`\`
-${data.architecture || 'Smart Contract Layer\n  ↓\nOracle Integration\n  ↓\nFrontend Interface'}
-\`\`\`
-
 ## 💻 Tech Stack
 
-**Smart Contracts**
-\`Solidity\` \`Foundry\` \`OpenZeppelin\`
+**Contracts:** \`Solidity\` \`Foundry\` \`OpenZeppelin\`
+**Integration:** ${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(t => t).join(' ')}
 
-**Protocol Integration**
-${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(t => t).join(' ')}
-
-## 📦 Installation & Setup
+## 📦 Setup
 
 \`\`\`bash
 git clone https://github.com/${data.author}/${data.projectNameSlug}.git
 cd ${data.projectNameSlug}
-
-npm install
-forge install
+npm install && forge install
 \`\`\`
 
 ## 🚀 Deployment
 
 \`\`\`bash
-# Test deployment
-forge script script/Deploy.s.sol --fork-url \$RPC_URL
-
-# Mainnet deployment
-forge script script/Deploy.s.sol --rpc-url \$MAINNET_RPC --private-key \$PRIVATE_KEY --broadcast --verify
+forge script script/Deploy.s.sol --rpc-url \$RPC_URL --private-key \$PRIVATE_KEY --broadcast
 \`\`\`
 
 ## 📈 Protocol Metrics
 
 - **TVL:** ${data.tvl || 'TBD'}
-- **Supported Chains:** ${data.networks || 'Ethereum, Arbitrum, Optimism'}
+- **Chains:** ${data.networks || 'Ethereum, Arbitrum, Optimism'}
 - **Governance:** ${data.governance || 'DAO'}
 
 ## 🔒 Security
 
 ${data.securityNotes.split('\n').map(s => s.trim() ? `- ${s.trim()}` : '').filter(s => s).join('\n')}
 
-## 📖 Documentation
-
-- [Whitepaper](./docs/whitepaper.md)
-- [API Reference](./docs/api.md)
-- [Governance](./docs/governance.md)
-
 ## 📄 License
 
 ${data.license || 'MIT'}
 
-## 🤝 Contributing
-
-We welcome community contributions. Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
-
 ## 📞 Support
 
 - **Discord:** ${data.discord || 'https://discord.gg/your-server'}
-- **GitHub Issues:** [Report a Bug](https://github.com/${data.author}/${data.projectNameSlug}/issues)
 - **Email:** ${data.email}
 
 ---
 
-**Advancing DeFi with innovation and security. 🔗**
+**DeFi Innovation. Security First. 🔗**
 `;
 
 const generateDevOpsREADME = (data) => `# ${data.projectName}
@@ -309,68 +254,32 @@ ${data.features.split('\n').map(f => f.trim() ? `- ${f.trim()}` : '').filter(f =
 
 ## 🛠️ Tech Stack
 
-**Infrastructure**
-\`Docker\` \`Kubernetes\` \`Terraform\` \`AWS\`
-
-**Monitoring & Logging**
-${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(t => t).join(' ')}
+**Infrastructure:** \`Docker\` \`Kubernetes\` \`Terraform\` \`AWS\`
+**Monitoring:** ${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(t => t).join(' ')}
 
 ## 📦 Getting Started
 
 \`\`\`bash
 git clone https://github.com/${data.author}/${data.projectNameSlug}.git
 cd ${data.projectNameSlug}
-
-# Install dependencies
 make install
 \`\`\`
 
 ## 🚀 Deployment
 
-### Docker
-
-\`\`\`bash
-docker build -t ${data.projectNameSlug}:latest .
-docker run -p 8080:8080 ${data.projectNameSlug}:latest
-\`\`\`
-
-### Kubernetes
-
-\`\`\`bash
-kubectl apply -f k8s/
-\`\`\`
-
-### Terraform
-
-\`\`\`bash
-cd terraform/
-terraform plan
-terraform apply
-\`\`\`
+**Docker:** \`docker build -t ${data.projectNameSlug}:latest . && docker run -p 8080:8080 ${data.projectNameSlug}:latest\`
+**K8s:** \`kubectl apply -f k8s/\`
+**Terraform:** \`cd terraform/ && terraform plan && terraform apply\`
 
 ## 📊 Monitoring
 
-- **Prometheus:** http://localhost:9090
-- **Grafana:** http://localhost:3000
-- **Logs:** ELK Stack / CloudWatch
-
-## 🔍 Health Checks
-
-\`\`\`bash
-curl http://localhost:8080/health
-\`\`\`
-
-## 📈 Scaling
-
-${data.scaling || '- Horizontal: Auto-scaling groups with load balancing\n- Vertical: Resource optimization and caching'}
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000
+- ELK Stack for logs
 
 ## 📄 License
 
 ${data.license || 'MIT'}
-
-## 🤝 Contributing
-
-Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## 📞 Contact
 
@@ -379,7 +288,7 @@ Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
-**Building reliable, scalable infrastructure. 🚀**
+**Production-Grade Infrastructure. 🚀**
 `;
 
 const generateSecurityREADME = (data) => `# ${data.projectName}
@@ -396,57 +305,40 @@ ${data.features.split('\n').map(f => f.trim() ? `- ${f.trim()}` : '').filter(f =
 
 ## 🎯 Severity Breakdown
 
-- **Critical:** ${data.criticalCount || '0'}
-- **High:** ${data.highCount || '0'}
-- **Medium:** ${data.mediumCount || '0'}
-- **Low:** ${data.lowCount || '0'}
+| Level | Count |
+|-------|-------|
+| Critical | ${data.criticalCount || '0'} |
+| High | ${data.highCount || '0'} |
+| Medium | ${data.mediumCount || '0'} |
+| Low | ${data.lowCount || '0'} |
 
-## 🛠️ Audit Tools & Methods
+## 🛠️ Tools & Methods
 
 ${data.techStack.split('\n').map(t => t.trim() ? `\`${t.trim()}\`` : '').filter(t => t).join(' ')}
 
-## 📊 Detailed Findings
+## 📊 Findings
 
-### Critical Issues
+**Critical Issues:** ${data.criticalIssues || 'None identified.'}
 
-\`\`\`
-${data.criticalIssues || 'None identified.'}
-\`\`\`
+**High Severity:** ${data.highIssues || 'None identified.'}
 
-### High Severity
-
-\`\`\`
-${data.highIssues || 'None identified.'}
-\`\`\`
-
-### Recommendations
+## 💡 Recommendations
 
 ${data.recommendations.split('\n').map(r => r.trim() ? `- ${r.trim()}` : '').filter(r => r).join('\n')}
-
-## ✅ Remediation Status
-
-| Issue | Status | Fix |
-|-------|--------|-----|
-| ${data.remediation || 'Pending Review' | 'In Progress' | 'N/A'} |
 
 ## 📄 License
 
 ${data.license || 'MIT'}
 
-## 👥 Audit Team
+## 👥 Audit Info
 
-- **Lead Auditor:** ${data.author}
-- **Methodology:** Manual Review + Automated Analysis
-- **Audit Date:** ${new Date().toISOString().split('T')[0]}
-
-## 📞 Contact
-
+- **Lead:** ${data.author}
+- **Date:** ${new Date().toISOString().split('T')[0]}
 - **Email:** ${data.email}
-- **GitHub:** https://github.com/${data.author}
 
 ---
 
-**Security first. Always. 🔒**
+**Security First. Always. 🔒**
 `;
 
 const generateGeneralREADME = (data) => `# ${data.projectName}
@@ -479,14 +371,6 @@ npm install
 npm run dev
 \`\`\`
 
-## 📚 Documentation
-
-See [docs/](./docs/) for detailed documentation.
-
-## 🤝 Contributing
-
-Contributions welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
-
 ## 📄 License
 
 ${data.license || 'MIT'}
@@ -499,7 +383,7 @@ ${data.license || 'MIT'}
 
 ---
 
-**Built with passion for Web3. 🔗**
+**Built with ❤️ for Web3. 🚀**
 `;
 
 const generators = {
@@ -513,8 +397,6 @@ const generators = {
 
 async function main() {
   console.log('\n🎯 Web3 Project README Generator\n');
-  
-  // Ask for project type
   console.log('Available project types:');
   Object.entries(projectTypes).forEach(([key, value]) => {
     console.log(`  ${key}: ${value}`);
@@ -529,79 +411,72 @@ async function main() {
   
   console.log(`\n✅ Selected: ${projectTypes[projectType]}\n`);
   
-  // Collect data
   const data = {
     projectName: await question('📝 Project name: '),
-    projectNameSlug: (await question('🔗 Project slug (URL-friendly name): ')) || '',
-    description: await question('📄 Short description (1 line): '),
-    overview: await question('📊 Detailed overview (2-3 sentences): '),
-    features: await question('✨ Key features (one per line, enter twice when done):\n'),
-    techStack: await question('\n🛠️  Tech stack/tools (one per line, enter twice when done):\n'),
+    projectNameSlug: (await question('🔗 Project slug: ')) || '',
+    description: await question('📄 Description: '),
+    overview: await question('📊 Overview: '),
+    features: await question('✨ Features (one per line, finish with blank line):\n'),
+    techStack: await question('\n🛠️  Tech stack (one per line, finish with blank line):\n'),
     author: await question('\n👤 GitHub username: '),
     email: await question('📧 Email: '),
     license: await question('📜 License (default: MIT): ') || 'MIT',
   };
   
-  // Type-specific questions
   if (projectType === 'smart-contract') {
     data.solidityVersion = await question('📌 Solidity version (default: v0.8.20): ') || 'v0.8.20';
-    data.securityNotes = await question('🔒 Security considerations (one per line, enter twice when done):\n');
+    data.securityNotes = await question('🔒 Security notes (one per line, finish with blank line):\n');
   } else if (projectType === 'web3-frontend') {
-    data.networks = await question('🌐 Supported networks (one per line, enter twice when done):\n');
-    data.twitter = await question('🐦 Twitter handle (optional): ');
+    data.networks = await question('🌐 Networks (one per line, finish with blank line):\n');
+    data.twitter = await question('🐦 Twitter (optional): ');
   } else if (projectType === 'defi-protocol') {
     data.tvl = await question('📈 TVL (optional): ');
-    data.networks = await question('🌐 Supported networks (optional): ');
-    data.governance = await question('🗳️  Governance model (optional): ');
-    data.securityNotes = await question('🔒 Security notes (one per line, enter twice when done):\n');
-    data.discord = await question('💬 Discord server (optional): ');
+    data.networks = await question('🌐 Networks (optional): ');
+    data.governance = await question('🗳️  Governance (optional): ');
+    data.securityNotes = await question('🔒 Security notes (one per line, finish with blank line):\n');
+    data.discord = await question('💬 Discord (optional): ');
   } else if (projectType === 'devops') {
     data.scaling = await question('📈 Scaling strategy (optional): ');
   } else if (projectType === 'security') {
-    data.criticalCount = await question('🔴 Critical findings count: ');
-    data.highCount = await question('🟠 High findings count: ');
-    data.mediumCount = await question('🟡 Medium findings count: ');
-    data.lowCount = await question('🟢 Low findings count: ');
-    data.criticalIssues = await question('📋 Critical issues details (optional): ');
-    data.highIssues = await question('📋 High issues details (optional): ');
-    data.recommendations = await question('💡 Recommendations (one per line, enter twice when done):\n');
-    data.remediation = await question('✅ Remediation status (optional): ');
+    data.criticalCount = await question('🔴 Critical count: ');
+    data.highCount = await question('🟠 High count: ');
+    data.mediumCount = await question('🟡 Medium count: ');
+    data.lowCount = await question('🟢 Low count: ');
+    data.criticalIssues = await question('📋 Critical issues (optional): ');
+    data.highIssues = await question('📋 High issues (optional): ');
+    data.recommendations = await question('💡 Recommendations (one per line, finish with blank line):\n');
   }
   
   rl.close();
   
-  // Generate README
   const generator = generators[projectType];
   const readme = generator(data);
-  
-  // Create output directory
   const outputDir = `${process.cwd()}/${data.projectNameSlug || data.projectName.toLowerCase().replace(/\s+/g, '-')}`;
   
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   
-  // Write README
-  const readmePath = path.join(outputDir, 'README.md');
-  fs.writeFileSync(readmePath, readme);
+  fs.writeFileSync(path.join(outputDir, 'README.md'), readme);
   
-  console.log(`\n✅ README generated successfully!\n`);
-  console.log(`📂 Location: ${readmePath}\n`);
-  console.log(`🎉 Your project is ready to go!\n`);
+  console.log(`\n✅ README generated!\n📂 ${path.join(outputDir, 'README.md')}\n`);
 }
 
 main().catch(console.error);
-EOF
+EOFJS
 
 chmod +x "$PROJECT_GEN_DIR/generate-readme.js"
-echo -e "${GREEN}✅ Created CLI tool: generate-readme.js${NC}\n"
+echo -e "${GREEN}✅ CLI Tool created${NC}"
 
-# Create package.json for the CLI tool
-cat > "$PROJECT_GEN_DIR/package.json" << 'EOF'
+# ============================================================================
+# 2. CREATE PACKAGE.JSON
+# ============================================================================
+
+cat > "$PROJECT_GEN_DIR/package.json" << 'EOFPKG'
 {
   "name": "web3-project-generator",
   "version": "1.0.0",
-  "description": "Generate professional Web3 project READMEs",
+  "description": "Web3 Project README Generator",
   "main": "generate-readme.js",
   "bin": {
     "web3-gen": "./generate-readme.js"
@@ -610,57 +485,16 @@ cat > "$PROJECT_GEN_DIR/package.json" << 'EOF'
   "author": "boligntersurpren",
   "license": "MIT"
 }
-EOF
+EOFPKG
 
-echo -e "${GREEN}✅ Created package.json${NC}\n"
+echo -e "${GREEN}✅ Package.json created${NC}"
 
-# Create .gitkeep in project-gen directory for templates
-mkdir -p "$PROJECT_GEN_DIR/templates"
-touch "$PROJECT_GEN_DIR/templates/.gitkeep"
+# ============================================================================
+# 3. CREATE GITHUB ACTIONS WORKFLOW
+# ============================================================================
 
-# Create a CORRECTED shell alias installer
-cat > "$PROJECT_GEN_DIR/install-alias.sh" << 'EOF'
-#!/bin/bash
-
-SHELL_CONFIG=""
-
-if [[ "$SHELL" == *"zsh"* ]]; then
-  SHELL_CONFIG="$HOME/.zshrc"
-elif [[ "$SHELL" == *"bash"* ]]; then
-  SHELL_CONFIG="$HOME/.bash_profile"
-fi
-
-if [ -z "$SHELL_CONFIG" ]; then
-  echo "⚠️  Could not detect shell configuration file"
-  exit 1
-fi
-
-PROJECT_GEN_DIR="$HOME/.web3-project-generator"
-
-# Add alias to shell config with CORRECT path
-if ! grep -q "web3-gen" "$SHELL_CONFIG"; then
-  echo "alias web3-gen='node $PROJECT_GEN_DIR/generate-readme.js'" >> "$SHELL_CONFIG"
-  echo "✅ Added 'web3-gen' alias to $SHELL_CONFIG"
-  echo ""
-  echo "🔄 Run one of these to reload:"
-  echo "   source $SHELL_CONFIG"
-  echo ""
-else
-  echo "✅ Alias already exists in $SHELL_CONFIG"
-fi
-EOF
-
-chmod +x "$PROJECT_GEN_DIR/install-alias.sh"
-
-echo -e "${GREEN}✅ Created alias installer${NC}\n"
-
-# Create .github/workflows directory structure
-WORKFLOWS_DIR="$PROJECT_GEN_DIR/github-workflows"
-mkdir -p "$WORKFLOWS_DIR"
-
-# Create GitHub Actions workflow
-cat > "$WORKFLOWS_DIR/generate-readme.yml" << 'EOF'
-name: Generate README on PR
+cat > "$PROJECT_GEN_DIR/github-workflows/generate-readme.yml" << 'EOFWF'
+name: Generate README
 
 on:
   pull_request:
@@ -669,668 +503,313 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate-readme:
+  generate:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      
-      - name: Install generator
-        run: |
-          npm install -g web3-project-generator || npm install
-      
-      - name: Generate README from config
-        run: |
-          node .github/workflows/process-config.js
-      
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: 'docs: auto-generate README.md'
-          title: 'docs: auto-generated README'
-          body: 'This README was auto-generated from project configuration'
-          branch: auto/readme-update
+      - run: node .github/workflows/process-config.js
+EOFWF
 
-EOF
+echo -e "${GREEN}✅ GitHub Actions workflow created${NC}"
 
-echo -e "${GREEN}✅ Created GitHub Actions workflow${NC}\n"
+# ============================================================================
+# 4. CREATE CONFIG PROCESSOR
+# ============================================================================
 
-# Create GitHub Actions config processor
-cat > "$WORKFLOWS_DIR/process-config.js" << 'EOF'
+cat > "$PROJECT_GEN_DIR/github-workflows/process-config.js" << 'EOFPROC'
 #!/usr/bin/env node
-
 const fs = require('fs');
 const path = require('path');
 
-// Read project config
 const configPath = path.join(process.cwd(), 'project.config.json');
-
 if (!fs.existsSync(configPath)) {
   console.error('❌ project.config.json not found');
   process.exit(1);
 }
 
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+console.log(`📖 Generating README for: ${config.projectName}`);
 
-console.log('📖 Generating README from config...');
-console.log(`Project: ${config.projectName}`);
-
-// Simple template processor
 const readme = `# ${config.projectName}
 
 ${config.description}
 
 ## 📖 Overview
-
 ${config.overview}
 
 ## ✨ Features
-
-${config.features.map(f => `- ✅ ${f}`).join('\n')}
+${config.features.map(f => `- ${f}`).join('\n')}
 
 ## 🛠️ Tech Stack
-
 ${config.techStack.map(t => `\`${t}\``).join(' ')}
 
 ## 📦 Installation
-
 \`\`\`bash
 git clone https://github.com/${config.author}/${config.projectNameSlug}.git
 cd ${config.projectNameSlug}
 npm install
 \`\`\`
 
-## 🚀 Quick Start
-
-\`\`\`bash
-npm run dev
-\`\`\`
-
 ## 📄 License
-
 ${config.license || 'MIT'}
 
 ## 📞 Contact
-
 - **Author:** ${config.author}
 - **Email:** ${config.email}
-- **GitHub:** https://github.com/${config.author}
 
----
-
-Auto-generated README. Last updated: ${new Date().toISOString()}
+Auto-generated: ${new Date().toISOString()}
 `;
 
-// Write README
 fs.writeFileSync(path.join(process.cwd(), 'README.md'), readme);
-console.log('✅ README.md generated successfully!');
+console.log('✅ README.md generated!');
+EOFPROC
 
-EOF
+chmod +x "$PROJECT_GEN_DIR/github-workflows/process-config.js"
+echo -e "${GREEN}✅ Config processor created${NC}"
 
-chmod +x "$WORKFLOWS_DIR/process-config.js"
+# ============================================================================
+# 5. CREATE EXAMPLE CONFIG
+# ============================================================================
 
-echo -e "${GREEN}✅ Created GitHub Actions config processor${NC}\n"
-
-# Create example project config
-cat > "$WORKFLOWS_DIR/example-project.config.json" << 'EOF'
+cat > "$PROJECT_GEN_DIR/github-workflows/example-project.config.json" << 'EOFCFG'
 {
-  "projectName": "My Awesome Web3 Project",
-  "projectNameSlug": "awesome-web3-project",
-  "projectType": "general",
-  "description": "A powerful Web3 tool for the modern developer",
-  "overview": "This project provides cutting-edge solutions for blockchain development with a focus on security and usability.",
-  "features": [
-    "Smart contract integration",
-    "Multi-chain support",
-    "User-friendly interface",
-    "Production-ready code"
-  ],
-  "techStack": [
-    "Solidity",
-    "React",
-    "TypeScript",
-    "ethers.js",
-    "Foundry"
-  ],
+  "projectName": "My Web3 Project",
+  "projectNameSlug": "my-web3-project",
+  "description": "A powerful Web3 solution",
+  "overview": "This project provides cutting-edge blockchain solutions.",
+  "features": ["Smart contracts", "Multi-chain", "User-friendly"],
+  "techStack": ["Solidity", "React", "ethers.js"],
   "author": "boligntersurpren",
   "email": "your-email@example.com",
   "license": "MIT"
 }
-EOF
+EOFCFG
 
-echo -e "${GREEN}✅ Created example project config${NC}\n"
+echo -e "${GREEN}✅ Example config created${NC}"
 
-# Create setup instructions file
-cat > "$PROJECT_GEN_DIR/SETUP_INSTRUCTIONS.md" << 'EOF'
-# 🚀 Web3 Project Generator - Setup Complete!
+# ============================================================================
+# 6. CREATE SHELL ALIAS INSTALLER
+# ============================================================================
 
-## What Was Created
+cat > "$PROJECT_GEN_DIR/install-alias.sh" << 'EOFALIAS'
+#!/bin/bash
 
-✅ **CLI Tool** - `generate-readme.js`
-✅ **Package.json** - NPM configuration
-✅ **GitHub Actions** - Automated README generation
-✅ **Workflows** - CI/CD templates
-✅ **Examples** - Sample configurations
+SHELL_CONFIG=""
+if [[ "$SHELL" == *"zsh"* ]]; then
+  SHELL_CONFIG="$HOME/.zshrc"
+elif [[ "$SHELL" == *"bash"* ]]; then
+  SHELL_CONFIG="$HOME/.bash_profile"
+fi
 
-## 📍 Location
+if [ -z "$SHELL_CONFIG" ]; then
+  echo "❌ Could not detect shell"
+  exit 1
+fi
 
-All files are installed in: `~/.web3-project-generator`
+PROJECT_GEN_DIR="$HOME/.web3-project-generator"
 
-## 🎯 Usage
+if ! grep -q "web3-gen" "$SHELL_CONFIG"; then
+  echo "alias web3-gen='node $PROJECT_GEN_DIR/generate-readme.js'" >> "$SHELL_CONFIG"
+  echo "✅ Alias installed!"
+  echo "🔄 Run: source $SHELL_CONFIG"
+else
+  echo "✅ Alias already exists"
+fi
+EOFALIAS
 
-### Method 1: Using the Alias (Recommended for Mac)
+chmod +x "$PROJECT_GEN_DIR/install-alias.sh"
+echo -e "${GREEN}✅ Alias installer created${NC}"
+
+# ============================================================================
+# 7. CREATE DOCUMENTATION
+# ============================================================================
+
+cat > "$PROJECT_GEN_DIR/README.md" << 'EOFDOC'
+# Web3 Project Generator
+
+Professional README generator for Web3 projects.
+
+## Installation
 
 ```bash
-# Install the alias to your shell
-bash ~/.web3-project-generator/install-alias.sh
-
-# Reload your shell
-source ~/.zshrc  # if using zsh
-# or
-source ~/.bash_profile  # if using bash
-
-# Now use it anywhere
-web3-gen
-```
-
-### Method 2: Using Node Directly
-
-```bash
-node ~/.web3-project-generator/generate-readme.js
-```
-
-### Method 3: Using NPM Global Install
-
-```bash
-cd ~/.web3-project-generator
-npm install -g .
-
-# Now use
-web3-gen
-```
-
-## 📖 How to Use
-
-1. Run the generator:
-   ```bash
-   web3-gen
-   ```
-
-2. Select your project type:
-   - smart-contract
-   - web3-frontend
-   - defi-protocol
-   - devops
-   - security
-   - general
-
-3. Answer the interactive prompts
-
-4. Your README.md is generated automatically! 🎉
-
-## 🔧 Advanced: Using GitHub Actions
-
-1. Copy the workflow to your repo:
-   ```bash
-   cp ~/.web3-project-generator/github-workflows/generate-readme.yml .github/workflows/
-   ```
-
-2. Create `project.config.json` in your repo root:
-   ```json
-   {
-     "projectName": "Your Project",
-     "projectNameSlug": "your-project",
-     "description": "Description",
-     "overview": "Overview",
-     "features": ["Feature 1", "Feature 2"],
-     "techStack": ["Tech1", "Tech2"],
-     "author": "your-github-username",
-     "email": "your-email@example.com",
-     "license": "MIT"
-   }
-   ```
-
-3. Push to trigger the workflow on PR changes
-
-## 🗂️ Directory Structure
-
-```
-~/.web3-project-generator/
-├── generate-readme.js          # Main CLI tool
-├── package.json               # NPM config
-├── install-alias.sh           # Alias installer
-├── SETUP_INSTRUCTIONS.md      # This file
-├── templates/                 # Template storage
-└── github-workflows/
-    ├── generate-readme.yml    # GitHub Actions workflow
-    ├── process-config.js      # Config processor
-    └── example-project.config.json
-```
-
-## 🎨 Supported Project Types
-
-| Type | Best For |
-|------|----------|
-| `smart-contract` | Solidity contracts, protocols |
-| `web3-frontend` | dApps, web3 interfaces |
-| `defi-protocol` | DeFi protocols, yield strategies |
-| `devops` | Infrastructure, deployment |
-| `security` | Audits, security reports |
-| `general` | Any other project |
-
-## 🆘 Troubleshooting
-
-### Command not found: web3-gen
-```bash
-# Reinstall the alias
 bash ~/.web3-project-generator/install-alias.sh
 source ~/.zshrc  # or ~/.bash_profile
 ```
 
-### Permission denied
-```bash
-chmod +x ~/.web3-project-generator/generate-readme.js
-chmod +x ~/.web3-project-generator/install-alias.sh
-```
-
-### Need to update tool
-```bash
-cd ~/.web3-project-generator
-git pull  # if it's a git repo
-npm update
-```
-
-## 📚 Examples
-
-### Example 1: Smart Contract Project
+## Usage
 
 ```bash
 web3-gen
-
-# Select: smart-contract
-# Project name: Permit2 Authorization
-# Description: Advanced token permission flows
-# Features: Gas optimization, batch transactions, EIP-712 signing
 ```
 
-### Example 2: Web3 Frontend
+## Project Types
 
-```bash
-web3-gen
+- **smart-contract** - Solidity contracts
+- **web3-frontend** - dApps & dashboards
+- **defi-protocol** - DeFi protocols
+- **devops** - Infrastructure
+- **security** - Security audits
+- **general** - Any project
 
-# Select: web3-frontend
-# Project name: DeFi Dashboard
-# Description: Real-time DeFi analytics
-# Tech Stack: React, Next.js, ethers.js, Wagmi
-```
+## Documentation
 
-## 🔗 Additional Resources
+- Full setup: `cat ~/.web3-project-generator/SETUP_INSTRUCTIONS.md`
+- Quick ref: `cat ~/.web3-project-generator/QUICK_REFERENCE.md`
 
-- [Solidity Best Practices](https://docs.soliditylang.org/)
-- [Ethereum Development](https://ethereum.org/en/developers/)
-- [Web3.js Documentation](https://docs.web3js.org/)
-- [ethers.js Documentation](https://docs.ethers.org/)
+## GitHub Actions
 
-## 🤝 Contributing
-
-Found an issue? Want to add a new template?
-
-```bash
-cd ~/.web3-project-generator
-# Make your changes
-# Test with: web3-gen
-```
-
-## 📞 Support
-
-- GitHub Issues: [Report a bug]
-- Twitter: [@boligntersurpren](https://twitter.com/boligntersurpren)
-- Email: boligntersurpren@gmail.com
+Copy workflow to `.github/workflows/` and create `project.config.json` in repo root.
 
 ---
 
-**Happy building! 🚀 Let's create amazing Web3 projects together.**
+**Made with ❤️ for Web3 developers**
+EOFDOC
 
-Generated: $(date)
-EOF
+# ============================================================================
+# 8. CREATE SETUP GUIDE
+# ============================================================================
 
-echo -e "${GREEN}✅ Created setup instructions${NC}\n"
+cat > "$PROJECT_GEN_DIR/SETUP_INSTRUCTIONS.md" << 'EOFGUIDE'
+# Setup Instructions
 
-# Create a quick reference guide
-cat > "$PROJECT_GEN_DIR/QUICK_REFERENCE.md" << 'EOF'
-# Quick Reference Guide
+## Installation
 
-## One-Liner Commands
+Run the alias installer:
 
 ```bash
-# Setup alias (first time only)
-bash ~/.web3-project-generator/install-alias.sh && source ~/.zshrc
-
-# Generate a README
-web3-gen
-
-# Get help
-node ~/.web3-project-generator/generate-readme.js --help
-
-# List templates
-ls ~/.web3-project-generator/templates/
-
-# View setup instructions
-cat ~/.web3-project-generator/SETUP_INSTRUCTIONS.md
+bash ~/.web3-project-generator/install-alias.sh
 ```
 
-## Common Workflows
+Reload your shell:
 
-### Create Smart Contract Project README
+```bash
+source ~/.zshrc  # or ~/.bash_profile
+```
+
+## Usage
+
+### Generate a README
 
 ```bash
 web3-gen
-# Select: smart-contract
-# Answer prompts...
-# ✅ Done! README.md created
 ```
 
-### Create Web3 Frontend Project README
+Select your project type and answer the prompts.
 
-```bash
-web3-gen
-# Select: web3-frontend
-# Answer prompts...
-# ✅ Done! README.md created
-```
+### Using GitHub Actions
 
-### Setup GitHub Actions in Your Repo
+1. Copy workflow: `cp ~/.web3-project-generator/github-workflows/generate-readme.yml .github/workflows/`
+2. Create `project.config.json` in your repo root
+3. Push to GitHub
 
-```bash
-# Copy workflow
-cp ~/.web3-project-generator/github-workflows/generate-readme.yml YOUR_REPO/.github/workflows/
+## Project Types
 
-# Copy example config
-cp ~/.web3-project-generator/github-workflows/example-project.config.json YOUR_REPO/project.config.json
-
-# Edit and customize project.config.json
-nano YOUR_REPO/project.config.json
-
-# Commit and push
-cd YOUR_REPO
-git add .
-git commit -m "Setup: Add README auto-generation workflow"
-git push
-```
-
-## Project Types Quick Guide
-
-### Smart Contract ⛓️
-For Solidity contracts, protocols, and EVM projects.
-- Includes: Foundry setup, contract structure, deployment guide
-- Output: Professional smart contract README
-
-### Web3 Frontend 🌐
-For dApps, dashboards, and web3 interfaces.
-- Includes: React/Next.js setup, wallet integration, environment config
-- Output: Modern frontend project README
-
-### DeFi Protocol 💰
-For yield farming, lending, and trading protocols.
-- Includes: Protocol mechanics, architecture diagram, security notes
-- Output: Comprehensive protocol documentation
-
-### DevOps 🚀
-For infrastructure, deployment, and scaling.
-- Includes: Docker, K8s, monitoring, health checks
-- Output: Production-ready infrastructure guide
-
-### Security 🔒
-For audits, security reviews, and threat analysis.
-- Includes: Findings summary, severity breakdown, remediation
-- Output: Professional audit report
-
-### General 📝
-For any other project type.
-- Includes: Basic structure, getting started, contribution guidelines
-- Output: General-purpose README
-
-## Tips & Tricks
-
-💡 **Pro Tip 1:** Answer "enter twice to finish" by pressing Enter twice at end of multi-line input
-
-💡 **Pro Tip 2:** Use slugs without spaces (e.g., `my-awesome-project` not `my awesome project`)
-
-💡 **Pro Tip 3:** Copy the generated README to your GitHub repo immediately
-
-💡 **Pro Tip 4:** Use the same template for consistency across your projects
-
-💡 **Pro Tip 5:** Customize the generated README further by editing directly
-
-## File Locations
-
-```
-~/.web3-project-generator/
-├── generate-readme.js                    # Main tool
-├── package.json                         # Dependencies
-├── install-alias.sh                     # Setup script
-├── SETUP_INSTRUCTIONS.md                # Full guide
-├── QUICK_REFERENCE.md                   # This file
-├── templates/                           # Storage
-└── github-workflows/
-    ├── generate-readme.yml              # GitHub Actions
-    ├── process-config.js                # Config processor
-    └── example-project.config.json      # Example config
-```
+| Type | Use Case |
+|------|----------|
+| smart-contract | Solidity projects |
+| web3-frontend | dApps, dashboards |
+| defi-protocol | DeFi protocols |
+| devops | Infrastructure |
+| security | Security audits |
+| general | Any project |
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Command not found | Run: `bash ~/.web3-project-generator/install-alias.sh` |
-| Permission denied | Run: `chmod +x ~/.web3-project-generator/*.sh` |
-| Node not found | Install Node.js from nodejs.org |
-| Old version | Delete `~/.web3-project-generator` and reinstall |
+**Command not found:**
+```bash
+bash ~/.web3-project-generator/install-alias.sh
+source ~/.zshrc
+```
+
+**Permissions issue:**
+```bash
+chmod +x ~/.web3-project-generator/*.sh
+chmod +x ~/.web3-project-generator/generate-readme.js
+```
 
 ---
 
-**Created by: @boligntersurpren | Web3 Systems Engineer**
+Questions? Contact: boligntersurpren@gmail.com
+EOFGUIDE
 
-Happy generating! 🚀
-EOF
+echo -e "${GREEN}✅ Setup guide created${NC}"
 
-echo -e "${GREEN}✅ Created quick reference guide${NC}\n"
+# ============================================================================
+# 9. CREATE QUICK REFERENCE
+# ============================================================================
 
-# Create final installation summary
-cat > "$PROJECT_GEN_DIR/INSTALLATION_SUMMARY.txt" << 'EOF'
-╔════════════════════════════════════════════════════════════════════╗
-║                                                                    ║
-║   ✅ WEB3 PROJECT GENERATOR - INSTALLATION COMPLETE!              ║
-║                                                                    ║
-║   Version: 1.0.0 (CORRECTED)                                      ║
-║   Created: 2026-06-13                                             ║
-║   Location: ~/.web3-project-generator                            ║
-║                                                                    ║
-╚════════════════════════════════════════════════════════════════════╝
+cat > "$PROJECT_GEN_DIR/QUICK_REFERENCE.md" << 'EOFQREF'
+# Quick Reference
 
-📦 WHAT WAS INSTALLED:
+## One-Liner Setup
 
-  ✅ CLI Tool (generate-readme.js)
-  ✅ Package Configuration (package.json)
-  ✅ GitHub Actions Workflow (generate-readme.yml)
-  ✅ Config Processor (process-config.js)
-  ✅ Documentation & Guides
-  ✅ Example Configurations
+```bash
+bash ~/.web3-project-generator/install-alias.sh && source ~/.zshrc && web3-gen
+```
 
-🚀 GETTING STARTED (3 STEPS):
+## Commands
 
-  1. Install the alias (one-time setup):
-     bash ~/.web3-project-generator/install-alias.sh
+```bash
+# Generate README
+web3-gen
 
-  2. Reload your shell:
-     source ~/.zshrc  # or ~/.bash_profile
+# Install alias
+bash ~/.web3-project-generator/install-alias.sh
 
-  3. Start generating:
-     web3-gen
+# View guide
+cat ~/.web3-project-generator/SETUP_INSTRUCTIONS.md
+```
 
-📚 DOCUMENTATION:
+## Project Types
 
-  • Full Setup Guide:
-    cat ~/.web3-project-generator/SETUP_INSTRUCTIONS.md
+- `smart-contract` - Solidity/EVM
+- `web3-frontend` - React/dApps
+- `defi-protocol` - DeFi protocols
+- `devops` - Infrastructure/K8s
+- `security` - Audits/security
+- `general` - Anything else
 
-  • Quick Reference:
-    cat ~/.web3-project-generator/QUICK_REFERENCE.md
+---
 
-  • GitHub Workflows:
-    cat ~/.web3-project-generator/github-workflows/generate-readme.yml
+**Fast. Simple. Powerful.**
+EOFQREF
 
-📂 DIRECTORY STRUCTURE:
+echo -e "${GREEN}✅ Quick reference created${NC}"
 
-  ~/.web3-project-generator/
-  ├── generate-readme.js              ← Main CLI tool
-  ├── package.json                   ← NPM config
-  ├── install-alias.sh               ← Alias installer
-  ├── SETUP_INSTRUCTIONS.md          ← Full documentation
-  ├── QUICK_REFERENCE.md             ← Quick start guide
-  ├── INSTALLATION_SUMMARY.txt       ← This file
-  ├── templates/                     ← Template storage
-  └── github-workflows/
-      ├── generate-readme.yml        ← GitHub Actions
-      ├── process-config.js          ← Config processor
-      └── example-project.config.json ← Example config
-
-🎯 SUPPORTED PROJECT TYPES:
-
-  • smart-contract   → Solidity projects, protocols
-  • web3-frontend    → dApps, dashboards
-  • defi-protocol    → DeFi protocols, yield farms
-  • devops           → Infrastructure, K8s
-  • security         → Audits, security reviews
-  • general          → Any other project type
-
-⚠️  IMPORTANT FIX - CORRECTED VERSION:
-
-  If you see errors like:
-  "Cannot find module '/generate-readme.js'"
-
-  The alias path was FIXED! Make sure to reinstall:
-  bash ~/.web3-project-generator/install-alias.sh
-  source ~/.zshrc
-
-💡 NEXT STEPS:
-
-  1. Run the installer (you're already done!):
-     ✅ COMPLETE
-
-  2. Setup the alias:
-     bash ~/.web3-project-generator/install-alias.sh
-
-  3. Try it out:
-     web3-gen
-
-  4. Choose a project type and answer the prompts
-
-  5. Your professional README.md will be generated! 🎉
-
-🔗 USAGE EXAMPLES:
-
-  $ web3-gen
-  🎯 Web3 Project README Generator
-  
-  Available project types:
-    smart-contract: Smart Contract Project
-    web3-frontend: Web3 Frontend Tool
-    defi-protocol: DeFi Protocol
-    devops: DevOps/Infrastructure
-    security: Security/Audit
-    general: General Web3 Project
-  
-  Select project type (default: general): smart-contract
-  ✅ Selected: Smart Contract Project
-  
-  📝 Project name: Permit2 Protocol
-  🔗 Project slug: permit2-protocol
-  📄 Short description: Advanced token permission system
-  [... more prompts ...]
-  
-  ✅ README generated successfully!
-  📂 Location: /Users/you/permit2-protocol/README.md
-  🎉 Your project is ready to go!
-
-⚠️  FIRST TIME SETUP:
-
-  Run this ONCE:
-  bash ~/.web3-project-generator/install-alias.sh
-
-  Then reload your shell (pick one):
-  - source ~/.zshrc        (for Zsh/macOS default)
-  - source ~/.bash_profile (for Bash)
-  - source ~/.bashrc       (for Linux Bash)
-
-  After reloading, you can use:
-  web3-gen
-
-🆘 NEED HELP?
-
-  • View setup guide:
-    cat ~/.web3-project-generator/SETUP_INSTRUCTIONS.md
-
-  • View quick reference:
-    cat ~/.web3-project-generator/QUICK_REFERENCE.md
-
-  • Check GitHub workflows:
-    ls ~/.web3-project-generator/github-workflows/
-
-  • Contact: boligntersurpren@gmail.com
-
-✨ YOU'RE ALL SET! 
-
-  🎉 Your Web3 Project Generator is ready to use!
-  
-  To get started:
-    1. bash ~/.web3-project-generator/install-alias.sh
-    2. source ~/.zshrc (or ~/.bash_profile)
-    3. web3-gen
-    4. Follow the prompts!
-
-  Happy building! 🚀
-
-═══════════════════════════════════════════════════════════════════════
-
-Created with ❤️ for the Web3 developer community
-
-Version: 1.0.0 (CORRECTED)
-Generated: 2026-06-13
-EOF
-
-echo -e "${YELLOW}═══════════════════════════════════════════════════════${NC}"
-echo -e "${YELLOW}═══════════════════════════════════════════════════════${NC}\n"
-
-cat "$PROJECT_GEN_DIR/INSTALLATION_SUMMARY.txt"
+# ============================================================================
+# 10. DISPLAY COMPLETION BANNER
+# ============================================================================
 
 echo -e "\n${YELLOW}═══════════════════════════════════════════════════════${NC}"
 echo -e "${YELLOW}═══════════════════════════════════════════════════════${NC}\n"
 
-# Final setup instructions
-echo -e "${BLUE}📋 FINAL SETUP INSTRUCTIONS:${NC}\n"
+cat << "EOF"
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║    ✅ WEB3 PROJECT GENERATOR - COMPLETE                       ║
+║                                                                ║
+║    All files created and ready to use!                        ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+EOF
 
-echo -e "${YELLOW}Step 1: Install the shell alias${NC}"
-echo -e "  ${GREEN}bash ~/.web3-project-generator/install-alias.sh${NC}\n"
+echo -e "\n${BLUE}📂 Location: $PROJECT_GEN_DIR${NC}\n"
 
-echo -e "${YELLOW}Step 2: Reload your shell${NC}"
-echo -e "  ${GREEN}source ~/.zshrc${NC}  (or ${GREEN}source ~/.bash_profile${NC})\n"
-
-echo -e "${YELLOW}Step 3: Start using the generator${NC}"
-echo -e "  ${GREEN}web3-gen${NC}\n"
-
-echo -e "${GREEN}✅ Installation Complete!${NC}\n"
+echo -e "${YELLOW}🚀 THREE QUICK STEPS:${NC}\n"
+echo -e "  1. ${GREEN}bash ~/.web3-project-generator/install-alias.sh${NC}"
+echo -e "  2. ${GREEN}source ~/.zshrc${NC}"
+echo -e "  3. ${GREEN}web3-gen${NC}\n"
 
 echo -e "${BLUE}📚 Documentation:${NC}"
-echo -e "  • Full Guide: ${GREEN}cat ~/.web3-project-generator/SETUP_INSTRUCTIONS.md${NC}"
-echo -e "  • Quick Ref: ${GREEN}cat ~/.web3-project-generator/QUICK_REFERENCE.md${NC}"
-echo -e "  • Summary: ${GREEN}cat ~/.web3-project-generator/INSTALLATION_SUMMARY.txt${NC}\n"
+echo -e "  • Setup: ${GREEN}cat ~/.web3-project-generator/SETUP_INSTRUCTIONS.md${NC}"
+echo -e "  • Quick: ${GREEN}cat ~/.web3-project-generator/QUICK_REFERENCE.md${NC}\n"
 
-echo -e "${BLUE}🚀 Ready to generate amazing Web3 project READMEs!${NC}\n"
+echo -e "${GREEN}✨ You're all set! Ready to generate amazing READMEs.${NC}\n"
+
+echo -e "${YELLOW}═══════════════════════════════════════════════════════${NC}"
+echo -e "${YELLOW}═══════════════════════════════════════════════════════${NC}\n"
 
 exit 0
